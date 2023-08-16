@@ -45,7 +45,7 @@ def main():
 
 def removeStopWords(words):
     stop_words = set(stopwords.words('english'))
-    filtered_words = [word for word in words 
+    filtered_words = [word for word in words
                       if word.casefold() not in stop_words]
     return filtered_words
 
