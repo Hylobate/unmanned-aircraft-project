@@ -32,7 +32,7 @@ def read_requirements(path):
 setup(
     name="unmanned_aircraft_project",
     version=read("unmanned_aircraft_project", "VERSION"),
-    description="Awesome unmanned_aircraft_project created by Hylobate",
+    description="NLP and SPARQL conversion for the unmanned aircraft project",
     url="https://github.com/Hylobate/unmanned-aircraft-project/",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
