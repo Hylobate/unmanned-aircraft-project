@@ -1,6 +1,6 @@
 
 ---
-# unmanned_aircraft_project
+# Unmanned Aircraft Project
 
 This is an example project to show the start of a script that could potentially be integrated into a Vantage6 Wrapper. See the Assignment header below for further details on a possible design.
 
