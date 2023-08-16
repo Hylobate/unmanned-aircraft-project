@@ -31,6 +31,7 @@ def main():
     writeToCsvFile(sentences, words, filtered_text, stemmed_words, lemmatized_words, tagged_words, named_entities)
     triples = createTriples(named_entities)
     uploadToGraphDB(triples)
+    addToElasticSearch(plaintext)
 
 
 def removeStopWords(words):
@@ -83,4 +84,8 @@ def createTriples(named_entities):
 
 # TODO: Upload results to GraphDB
 def uploadToGraphDB(triples):
+    return None
+
+# TODO: Upload plaintext data to ElasticSearch instance
+def addToElasticSearch(plainttext):
     return None
