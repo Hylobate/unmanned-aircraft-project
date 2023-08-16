@@ -2,16 +2,22 @@
 """
 import requests
 from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.corpus import stopwords, wordnet
+from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk import pos_tag, ne_chunk
 from bs4 import BeautifulSoup
 import csv
 
-# I provide these variables here as an example, they should ofcourse be configurable through the environment variables in the Docker container and on the site.
+"""
+I provide these variables here as an example, 
+they should ofcourse be configurable through the environment variables in the Docker container and on the site.
+"""
+
+
 URL = "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019R0947&from=EN#d1e1116-45-1"
 STORAGE_LOCATION = "data/"
 FILENAME = "text_processing_results.csv"
+
 
 def main(): 
     plaintext = retrieveDocument(URL)
@@ -39,23 +45,28 @@ def removeStopWords(words):
     filtered_words = [word for word in words if word.casefold() not in stop_words]
     return filtered_words
 
+
 def stemWords(words):
     porter_stemmer = PorterStemmer()
     stemmed_words = [porter_stemmer.stem(word) for word in words]
     return stemmed_words
+
 
 def lemmatize(words):
     lemmatizer = WordNetLemmatizer()
     lemmatized_words = [lemmatizer.lemmatize(word) for word in words]
     return lemmatized_words
 
+
 def tagWords(words):
     tagged_words = pos_tag(words)
     return tagged_words
 
+
 def createNamedEntities(tagged_words):
     named_entities = ne_chunk(tagged_words)
     return named_entities
+
 
 def retrieveDocument(url):
     try:
@@ -78,13 +89,16 @@ def writeToCsvFile(sentences, words, filtered_text, stemmed_words, lemmatized_wo
         for i in range(len(sentences)):
             writer.writerow([words[i], filtered_text[i], stemmed_words[i], lemmatized_words[i], tagged_words[i], named_entities[i]])
 
+
 # TODO: Implement creation of triples from named entities
 def createTriples(named_entities):
     return None
 
+
 # TODO: Upload results to GraphDB
 def uploadToGraphDB(triples):
     return None
+
 
 # TODO: Upload plaintext data to ElasticSearch instance
 def addToElasticSearch(plainttext):
