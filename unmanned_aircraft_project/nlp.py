@@ -9,12 +9,14 @@ from bs4 import BeautifulSoup
 import csv
 
 """
-I provide these variables here as an example, 
-they should ofcourse be configurable through the environment variables in the Docker container and on the site.
+I provide these variables here as an example,
+they should ofcourse be configurable through the environment variables 
+in the Docker container and on the site.
 """
 
 
-URL = "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019R0947&from=EN#d1e1116-45-1"
+URL = "https://eur-lex.europa.eu/legal-content/" \
+    + "EN/TXT/HTML/?uri=CELEX:32019R0947&from=EN#d1e1116-45-1"
 STORAGE_LOCATION = "data/"
 FILENAME = "text_processing_results.csv"
 
@@ -34,7 +36,8 @@ def main():
     lemmatized_words = lemmatize(words)
     tagged_words = tagWords(words)
     named_entities = createNamedEntities(tagged_words)
-    writeToCsvFile(sentences, words, filtered_text, stemmed_words, lemmatized_words, tagged_words, named_entities)
+    writeToCsvFile(sentences, words, filtered_text, stemmed_words, 
+                   lemmatized_words, tagged_words, named_entities)
     triples = createTriples(named_entities)
     uploadToGraphDB(triples)
     addToElasticSearch(plaintext)
@@ -81,13 +84,16 @@ def retrieveDocument(url):
         return None
 
 
-def writeToCsvFile(sentences, words, filtered_text, stemmed_words, lemmatized_words, tagged_words, named_entities):
+def writeToCsvFile(sentences, words, filtered_text, stemmed_words, lemmatized_words, 
+                   tagged_words, named_entities):
     csv_file = STORAGE_LOCATION + FILENAME
     with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(["Sentence", "Word", "Filtered_Word", "Stemmed_Word", "Lemmatized_Word", "Tagged_Word", "Named_Entity"])
+        writer.writerow(["Sentence", "Word", "Filtered_Word", "Stemmed_Word", 
+                         "Lemmatized_Word", "Tagged_Word", "Named_Entity"])
         for i in range(len(sentences)):
-            writer.writerow([words[i], filtered_text[i], stemmed_words[i], lemmatized_words[i], tagged_words[i], named_entities[i]])
+            writer.writerow([words[i], filtered_text[i], stemmed_words[i], 
+                             lemmatized_words[i], tagged_words[i], named_entities[i]])
 
 
 # TODO: Implement creation of triples from named entities
