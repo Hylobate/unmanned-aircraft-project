@@ -1,6 +1,6 @@
 """ Example of what a basic NLP conversion could look like.
 """
-import requests
+import requests # type: ignore
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
